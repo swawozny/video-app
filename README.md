@@ -1,5 +1,5 @@
 # Getting Started with Create React App
-
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=swawozny_video-app&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=swawozny_video-app)
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
