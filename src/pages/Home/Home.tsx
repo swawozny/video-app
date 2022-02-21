@@ -1,6 +1,10 @@
+import SearchBar from "../../modules/SearchBar/SearchBar";
+
 const Home = () => {
     return (
-        <h1>HomePage</h1>
+        <>
+            <SearchBar/>
+        </>
     );
 };
 
