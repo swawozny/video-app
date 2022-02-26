@@ -37,7 +37,7 @@ const TopBar = () => {
                     >
                         {pages.map((page, index) => {
                             return (
-                                <NavItem>
+                                <NavItem key={"navItem_" + index}>
                                     <NavLink href={page.path}>
                                         {page.title}
                                     </NavLink>
