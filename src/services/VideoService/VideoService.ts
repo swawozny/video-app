@@ -18,6 +18,5 @@ export class VideoService {
             }
         }
         return -1;
-    };
-
+    }
 }
