@@ -49,7 +49,7 @@ export class VideoService {
 
     static getVideoPlatform(url: string) {
         for (const videoService of videoPlatforms) {
-            if (videoService.expression.test(url)) {
+            if (RegExp(videoService.regex).test(url)) {
                 return videoService;
             }
         }
@@ -61,6 +61,6 @@ export class VideoService {
         if (videoPlatform) {
             return videoPlatform.linkService.checkVideoLink(url);
         }
-        return new Promise<boolean>((resolve, reject) => reject(false));
+        return Promise.reject<boolean>(false);
     }
 }

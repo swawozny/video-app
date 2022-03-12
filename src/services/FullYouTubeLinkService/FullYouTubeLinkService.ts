@@ -6,7 +6,7 @@ export class FullYouTubeLinkService implements LinkService {
     getVideoId(url: string) {
         const platform = VideoService.getVideoPlatform(url);
         if (platform) {
-            const matchStringArray = url.match(platform.expression);
+            const matchStringArray = url.match(platform.regex);
             return matchStringArray ? matchStringArray[3] : "";
         }
         return "";

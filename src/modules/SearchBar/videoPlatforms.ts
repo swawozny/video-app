@@ -4,7 +4,7 @@ import {FullYouTubeLinkService} from "../../services/FullYouTubeLinkService/Full
 const videoPlatforms: Platform[] = [
     {
         id: 0,
-        expression: new RegExp("^((?:https?:)?\\/\\/)?((?:www|m)\\.)?youtube.com\\/watch\\?v=([a-zA-Z0-9\\_-]+)"),
+        regex: "^((?:https?:)?\\/\\/)?((?:www|m)\\.)?youtube.com\\/watch\\?v=([a-zA-Z0-9\\_-]+)",
         linkService: new FullYouTubeLinkService()
     }
 ];
