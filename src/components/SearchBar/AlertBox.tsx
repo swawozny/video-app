@@ -6,7 +6,7 @@ type Props = {
 };
 
 const AlertBox: React.FC<Props> = ({videoAdded}) => {
-    const getAlertColor = () => {
+    const getAlertColor = (): string => {
         if (videoAdded) {
             return "success";
         }

@@ -1,4 +1,5 @@
 export interface Video {
-    url: string;
-    serviceId: number;
+    id: string;
+    platformId: number;
+    dateAdded: string;
 }

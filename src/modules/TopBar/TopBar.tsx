@@ -1,7 +1,7 @@
-import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "reactstrap";
 import {useState} from "react";
-
+import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "reactstrap";
 import {PersonVideo2} from "react-bootstrap-icons";
+
 import pages from "../../pages/pages";
 
 const TopBar = () => {
@@ -12,7 +12,6 @@ const TopBar = () => {
                 color="primary"
                 dark
                 expand="md"
-                full
             >
                 <NavbarBrand
                     className="me-auto"
