@@ -15,6 +15,6 @@ export class YouTubeVideoIdService implements LinkService {
     async checkVideoLink(url: string) {
         const youTubeVideoId = this.getVideoId(url);
         const response = await YouTubeService.getVideoDetails(youTubeVideoId);
-        return response.data['items'].length > 0;
+        return response.status === 200;
     }
 }
