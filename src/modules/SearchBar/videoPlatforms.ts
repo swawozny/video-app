@@ -1,11 +1,17 @@
 import {Platform} from "../../interfaces/Platform/Platform";
-import {FullYouTubeLinkService} from "../../services/FullYouTubeLinkService/FullYouTubeLinkService";
+import {YouTubeLinkService} from "../../services/YouTubeLinkService/YouTubeLinkService";
+import {PlatformType} from "../../interfaces/Platform/PlatformType";
 
 const videoPlatforms: Platform[] = [
     {
-        id: 0,
+        id: PlatformType.YOUTUBE,
         regex: "^((?:https?:)?\\/\\/)?((?:www|m)\\.)?youtube.com\\/watch\\?v=([a-zA-Z0-9\\_-]+)",
-        linkService: new FullYouTubeLinkService()
+        linkService: new YouTubeLinkService()
+    },
+    {
+        id: PlatformType.YOUTUBE,
+        regex: "^((?:https?:)?\\/\\/)?((?:www|m)\\.)?youtu.be/([a-zA-Z0-9\\_-]+)",
+        linkService: new YouTubeLinkService()
     }
 ];
 

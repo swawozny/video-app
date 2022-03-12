@@ -2,7 +2,7 @@ import {LinkService} from "../../interfaces/LinkService/LinkService";
 import {YouTubeService} from "../YouTubeService/YouTubeService";
 import {VideoService} from "../VideoService/VideoService";
 
-export class FullYouTubeLinkService implements LinkService {
+export class YouTubeLinkService implements LinkService {
     getVideoId(url: string) {
         const platform = VideoService.getVideoPlatform(url);
         if (platform) {
