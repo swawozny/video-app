@@ -30,7 +30,7 @@ const InputBox: React.FC<Props> = ({buttonText, inputPlaceHolder, searchInput, s
         }
     };
 
-    const handleClickButton = () => {
+    const handleClickButton = async () => {
         setButtonClicked(true);
         checkVideo(searchInput);
         setButtonClicked(false);

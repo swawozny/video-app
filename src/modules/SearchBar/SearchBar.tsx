@@ -14,13 +14,19 @@ const SearchBar = () => {
 
     const checkVideo = (videoUrl: string) => {
         setVideoAdded(null);
-        const videoServiceId: number = VideoService.getVideoServiceId(videoUrl);
-        const isVideoAdded: boolean = videoServiceId !== -1;
-        if (isVideoAdded) {
-            VideoService.addVideo({url: videoUrl, serviceId: videoServiceId});
-            setSearchInput("");
-        }
-        setVideoAdded(isVideoAdded);
+        VideoService.checkLink(videoUrl)
+            .then((linkCorrect) => {
+                if (linkCorrect) {
+                    VideoService.addVideo(videoUrl);
+                    setSearchInput("");
+                    setVideoAdded(true);
+                } else {
+                    setVideoAdded(false);
+                }
+            })
+            .catch(() => {
+                setVideoAdded(false);
+            });
     };
 
     return (
