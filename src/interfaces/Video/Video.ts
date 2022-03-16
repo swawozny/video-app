@@ -1,5 +1,8 @@
 export interface Video {
     id: string;
-    platformId: number;
-    dateAdded: string;
+    title: string;
+    views: number | null;
+    likes: number;
+    thumbnail: string;
+    publishedAt: string;
 }

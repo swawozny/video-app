@@ -1,10 +1,52 @@
 import axios from "axios";
 
-export class VimeoService {
-    static getVideoDetails(videoId: string) {
+import {PlatformService} from "../../interfaces/PlatformService/PlatformService";
+import {ParamsService} from "../ParamsService/ParamsService";
+import {Video} from "../../interfaces/Video/Video";
+
+export class VimeoService implements PlatformService {
+    headers = {"Authorization": `Bearer ${process.env.REACT_APP_VIMEO_ACCESS_TOKEN}`};
+
+    getVideoDetails(videoId: string) {
         return axios.create({
             baseURL: process.env.REACT_APP_VIMEO_API_URL,
-            headers: {"Authorization": `Bearer ${process.env.REACT_APP_VIMEO_ACCESS_TOKEN}`}
+            headers: this.headers
         }).get(`/videos/${videoId}`);
+    }
+
+    mapItemToVideo(item: any) {
+        return {
+            id: item.uri,
+            title: item.name,
+            views: null,
+            likes: item.metadata.connections.likes.total,
+            thumbnail: item.pictures.base_link,
+            publishedAt: item.release_time
+        } as Video;
+    }
+
+    getListWithPrefixes(list: string[]) {
+        return list.map(id => {
+            return `/videos/${id}`;
+        });
+    }
+
+    getVideoList(videoIdList: string[]) {
+        return axios.create({
+            baseURL: process.env.REACT_APP_VIMEO_API_URL,
+            headers: this.headers,
+            params: {
+                uris: this.getListWithPrefixes(videoIdList),
+            },
+            paramsSerializer: params => new ParamsService().serializeParams(params)
+        }).get(`/videos`)
+            .then(response => {
+                return response.data.data.map((item: any) => {
+                    return this.mapItemToVideo(item);
+                });
+            })
+            .catch(() => {
+                return [];
+            });
     }
 }

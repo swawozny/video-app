@@ -1,25 +1,27 @@
 import {Platform} from "../../interfaces/Platform/Platform";
-import videoPlatforms from "../../modules/SearchBar/videoPlatforms";
+import {VideoLink} from "../../interfaces/VideoLink/VideoLink";
 import {Video} from "../../interfaces/Video/Video";
+import videoPlatformTypes from "../../modules/SearchBar/videoPlatformTypes";
+import videoPlatforms from "../../modules/SearchBar/videoPlatforms";
 
 export class VideoService {
     static getVideoId(url: string) {
         const platform = this.getVideoPlatform(url);
+
         if (platform) {
             return platform.linkService.getVideoId(url);
         }
-
         return "";
     }
 
-    static checkVideo(list: Video[], newVideo: Video) {
+    static checkVideo(list: VideoLink[], newVideo: VideoLink) {
         if (newVideo.platformId === -1) {
             return false;
         }
         return !list.some(video => video.id === newVideo.id && video.platformId === newVideo.platformId);
     }
 
-    static getVideoList() {
+    static getVideoListFromStorage() {
         const actualVideoList = localStorage.getItem("videoList");
         return actualVideoList ? JSON.parse(actualVideoList) : [];
     }
@@ -31,14 +33,12 @@ export class VideoService {
         return {
             id: videoId,
             platformId: platform ? platform.id : -1,
-            dateAdded: new Date().toString()
         };
     }
 
     static addVideo(videoUrl: string) {
-        const list: Video[] = this.getVideoList();
-        const newVideo: Video = this.getVideoObject(videoUrl);
-
+        const list: VideoLink[] = this.getVideoListFromStorage();
+        const newVideo: VideoLink = this.getVideoObject(videoUrl);
         let videoCanBeAdded: boolean = this.checkVideo(list, newVideo);
 
         if (videoCanBeAdded) {
@@ -62,5 +62,46 @@ export class VideoService {
             return videoPlatform.linkService.checkVideoLink(url);
         }
         return Promise.reject<boolean>(false);
+    }
+
+    static initGroupedList(list: string[][]) {
+        videoPlatformTypes.forEach((_, platformType) => {
+            list[platformType] = [];
+        });
+    }
+
+    static groupListByPlatformId(videoLinkList: VideoLink[], groupedVideoLinkList: string[][]) {
+        videoLinkList.forEach(
+            videoLink => {
+                if (!groupedVideoLinkList[videoLink.platformId]) {
+                    groupedVideoLinkList[videoLink.platformId] = [];
+                }
+                groupedVideoLinkList[videoLink.platformId].push(videoLink.id);
+            }
+        );
+    }
+
+    static getGroupedVideoLinks(list: VideoLink[]) {
+        let groupedVideoLinkList: string[][] = [];
+
+        this.initGroupedList(groupedVideoLinkList);
+        this.groupListByPlatformId(list, groupedVideoLinkList);
+
+        return groupedVideoLinkList;
+    }
+
+    static fetchAllVideos() {
+        const videoLinkList: VideoLink[] = this.getVideoListFromStorage();
+        const groupedVideoLinkList: string[][] = this.getGroupedVideoLinks(videoLinkList);
+        const promises: Promise<Video[]>[] = [];
+
+        videoPlatformTypes.forEach((platformService, platformType) => {
+            const platformVideoLinks: string[] = groupedVideoLinkList[platformType];
+            if (platformVideoLinks.length > 0) {
+                promises.push(platformService.getVideoList(platformVideoLinks));
+            }
+        });
+
+        return Promise.all(promises);
     }
 }

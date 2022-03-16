@@ -14,7 +14,7 @@ export class YouTubeLinkService implements LinkService {
 
     async checkVideoLink(url: string) {
         const videoId = this.getVideoId(url);
-        const response = await YouTubeService.getVideoDetails(videoId);
+        const response = await new YouTubeService().getVideoDetails(videoId);
         return response.data['items'].length > 0;
     }
 }
