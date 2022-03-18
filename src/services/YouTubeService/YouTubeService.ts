@@ -1,7 +1,11 @@
 import axios from 'axios';
 
-export class YouTubeService {
-    static getVideoDetails(videoId: string) {
+import {PlatformService} from "../../interfaces/PlatformService/PlatformService";
+import {ParamsService} from "../ParamsService/ParamsService";
+import {Video} from "../../interfaces/Video/Video";
+
+export class YouTubeService implements PlatformService {
+    getVideoDetails(videoId: string) {
         return axios.create({
             baseURL: process.env.REACT_APP_YOUTUBE_API_URL,
             params: {
@@ -9,10 +13,44 @@ export class YouTubeService {
                 maxResults: 5,
                 key: process.env.REACT_APP_YOUTUBE_SECRET_KEY
             }
+        })
+            .get('/videos', {
+                params: {
+                    id: videoId
+                }
+            });
+    }
+
+    mapItemToVideo(item: any) {
+        return {
+            id: item.id,
+            title: item.snippet.title,
+            views: Number(item.statistics.viewCount),
+            likes: Number(item.statistics.likeCount),
+            thumbnail: item.snippet.thumbnails.default.url,
+            publishedAt: item.snippet.publishedAt
+        } as Video
+    }
+
+    getVideoList(videoIdList: string[]) {
+        return axios.create({
+            baseURL: process.env.REACT_APP_YOUTUBE_API_URL,
+            params: {
+                part: ['snippet', 'id', 'player', 'statistics'],
+                key: process.env.REACT_APP_YOUTUBE_SECRET_KEY,
+            },
+            paramsSerializer: params => new ParamsService().serializeParams(params)
         }).get('/videos', {
             params: {
-                id: videoId
+                id: videoIdList
             }
-        });
+        }).then(response => {
+            return response.data.items.map((item: any) => {
+                return this.mapItemToVideo(item);
+            });
+        })
+            .catch(() => {
+                return [];
+            });
     }
 }

@@ -13,7 +13,7 @@ export class VimeoLinkService {
 
     async checkVideoLink(url: string) {
         const videoId = this.getVideoId(url);
-        const response = await VimeoService.getVideoDetails(videoId);
+        const response = await new VimeoService().getVideoDetails(videoId);
         return response.status === 200;
     }
 }
