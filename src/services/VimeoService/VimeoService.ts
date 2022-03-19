@@ -14,6 +14,10 @@ export class VimeoService implements PlatformService {
         }).get(`/videos/${videoId}`);
     }
 
+    getEmbedUrl(playerEmbedUrl: string) {
+        return `${playerEmbedUrl}&autoplay=1`;
+    }
+
     mapItemToVideo(item: any) {
         return {
             id: item.uri,
@@ -21,7 +25,8 @@ export class VimeoService implements PlatformService {
             views: null,
             likes: item.metadata.connections.likes.total,
             thumbnail: item.pictures.base_link,
-            publishedAt: item.release_time
+            publishedAt: item.release_time,
+            playerEmbedUrl: this.getEmbedUrl(item.player_embed_url)
         } as Video;
     }
 

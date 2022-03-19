@@ -21,6 +21,10 @@ export class YouTubeService implements PlatformService {
             });
     }
 
+    getEmbedUrl(videoId: string) {
+        return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    }
+
     mapItemToVideo(item: any) {
         return {
             id: item.id,
@@ -28,7 +32,8 @@ export class YouTubeService implements PlatformService {
             views: Number(item.statistics.viewCount),
             likes: Number(item.statistics.likeCount),
             thumbnail: item.snippet.thumbnails.default.url,
-            publishedAt: item.snippet.publishedAt
+            publishedAt: item.snippet.publishedAt,
+            playerEmbedUrl: this.getEmbedUrl(item.id)
         } as Video
     }
 
