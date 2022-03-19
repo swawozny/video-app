@@ -12,8 +12,8 @@ const VideoStatistic: React.FC<Props> = ({statisticValue, icon}) => {
     }
 
     return (
-        <CardText>
-            <p className="fw-bold"> {icon} {statisticValue}</p>
+        <CardText className="fw-bold">
+            {icon} {statisticValue}
         </CardText>
     );
 };

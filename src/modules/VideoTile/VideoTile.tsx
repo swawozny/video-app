@@ -1,10 +1,12 @@
-import React from "react";
-import {Card, CardBody, CardDeck, CardFooter, CardImg, CardImgOverlay, Col} from "reactstrap";
-import {HandThumbsUpFill, EyeFill, Calendar2DateFill} from "react-bootstrap-icons";
+import React, {useState} from "react";
+import {Card, CardBody, CardDeck, CardFooter, Col} from "reactstrap";
+import {Calendar2DateFill} from "react-bootstrap-icons";
 
-import {Video} from "../../interfaces/Video/Video";
 import VideoTitle from "../../components/VideoTile/VideoTitle";
 import VideoStatistic from "../../components/VideoTile/VideoStatistic";
+import VideoModal from "../VideoModal/VideoModal";
+import VideoImage from "../../components/VideoTile/VideoImage";
+import {Video} from "../../interfaces/Video/Video";
 
 type Props = {
     video: Video;
@@ -12,55 +14,61 @@ type Props = {
 };
 
 const VideoTile: React.FC<Props> = ({video, videoIndex}) => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [mouseEnter, setMouseEnter] = useState(false);
     const getDate = () => {
         return new Date(video.publishedAt).toLocaleDateString();
     };
 
-    return (
-        <Col className="my-3">
-            <CardDeck>
-            <Card inverse className="rounded text-center shadow-sm" style={{height: "400px"}}>
-                <CardImg
-                    alt={video.title}
-                    style={{height: "60%", width: "100%"}}
-                    src={video.thumbnail}
-                    top
-                />
-                    <CardImgOverlay
-                        style={{height: "62%", width: "100%"}}
-                        className="d-flex flex-column justify-content-end align-items-start"
-                    >
-                            <VideoStatistic
-                                statisticValue={video.likes}
-                                icon={<HandThumbsUpFill className="mb-1"/>}
-                            />
-                    </CardImgOverlay>
-                <CardImgOverlay
-                    style={{height: "62%", width: "100%"}}
-                    className="d-flex flex-column justify-content-end align-items-end">
-                            <VideoStatistic
-                                statisticValue={video.views}
-                                icon={<EyeFill className="mb-1"/>}
-                            />
-                    </CardImgOverlay>
-                <CardBody
-                    style={{minHeight: "30%"}}
+    const getShadowSize = () => {
+        if (mouseEnter) {
+            return "shadow-lg";
+        }
+        return "shadow-sm";
+    };
 
-                >
-                    <VideoTitle
-                        title={video.title}
-                        videoIndex={videoIndex}
-                    />
-                </CardBody>
-                <CardFooter
-                    className="bg-primary"
-                    style={{minHeight: "10%", minWidth: "auto"}}
-                >
-                    <VideoStatistic statisticValue={getDate()} icon={<Calendar2DateFill className="mb-1"/>}/>
-                </CardFooter>
-            </Card>
-            </CardDeck>
-        </Col>
+    return (
+        <>
+            <VideoModal
+                modalOpen={modalOpen}
+                setModalOpen={setModalOpen}
+                videoTitle={video.title}
+                playerEmbedUrl={video.playerEmbedUrl}
+            />
+            <Col className="my-3">
+                <CardDeck>
+                    <Card
+                        className={"rounded text-center " + getShadowSize()}
+                        style={{height: "400px"}}
+                        onClick={() => setModalOpen(true)}
+                        onMouseEnter={() => setMouseEnter(true)}
+                        onMouseLeave={() => setMouseEnter(false)}
+                        inverse
+                    >
+                        <VideoImage
+                            video={video}
+                            mouseEnter={mouseEnter}
+                            setModalOpen={setModalOpen}
+                        />
+                        <CardBody style={{minHeight: "30%"}}>
+                            <VideoTitle
+                                title={video.title}
+                                videoIndex={videoIndex}
+                            />
+                        </CardBody>
+                        <CardFooter
+                            className="bg-primary"
+                            style={{minHeight: "10%", minWidth: "auto"}}
+                        >
+                            <VideoStatistic
+                                statisticValue={getDate()}
+                                icon={<Calendar2DateFill className="mb-1"/>}
+                            />
+                        </CardFooter>
+                    </Card>
+                </CardDeck>
+            </Col>
+        </>
     );
 };
 

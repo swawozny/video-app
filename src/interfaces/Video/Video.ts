@@ -5,4 +5,5 @@ export interface Video {
     likes: number;
     thumbnail: string;
     publishedAt: string;
+    playerEmbedUrl: string;
 }
