@@ -7,7 +7,7 @@ type Props = {
     goToPage: (pageNumber: number) => void;
 };
 
-const LastPageButton: React.FC<Props> = ({isLastPage, currentPageNumber, goToPage}) => {
+const NextPageButton: React.FC<Props> = ({isLastPage, currentPageNumber, goToPage}) => {
     const goToNextPage = () => {
         goToPage(currentPageNumber + 1);
     };
@@ -25,4 +25,4 @@ const LastPageButton: React.FC<Props> = ({isLastPage, currentPageNumber, goToPag
     );
 };
 
-export default LastPageButton;
+export default NextPageButton;

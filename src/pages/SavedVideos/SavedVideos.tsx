@@ -9,7 +9,7 @@ import {Video} from "../../interfaces/Video/Video";
 const SavedVideos = () => {
     const [videoList, setVideoList] = useState(null as Video[] | null);
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
-    const [pageItemsNumber, setPageItemsNumber] = useState(8);
+    const [pageItemsNumber] = useState(8);
 
     useEffect(() => {
         VideoService.fetchAllVideos()
