@@ -3,6 +3,7 @@ import axios from "axios";
 import {PlatformService} from "../../interfaces/PlatformService/PlatformService";
 import {ParamsService} from "../ParamsService/ParamsService";
 import {Video} from "../../interfaces/Video/Video";
+import {PlatformType} from "../../interfaces/Platform/PlatformType";
 
 export class VimeoService implements PlatformService {
     headers = {"Authorization": `Bearer ${process.env.REACT_APP_VIMEO_ACCESS_TOKEN}`};
@@ -18,10 +19,16 @@ export class VimeoService implements PlatformService {
         return `${playerEmbedUrl}&autoplay=1`;
     }
 
+    getVideoId(videoUri: string) {
+        return videoUri.split('/').at(2);
+    }
+
     mapItemToVideo(item: any) {
         return {
-            id: item.uri,
+            id: this.getVideoId(item.uri),
+            platformId: PlatformType.VIMEO,
             title: item.name,
+            link: item.link,
             views: null,
             likes: item.metadata.connections.likes.total,
             thumbnail: item.pictures.base_link,

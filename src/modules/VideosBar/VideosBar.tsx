@@ -6,10 +6,11 @@ import AlertBox from "../../components/VideosBar/AlertBox";
 import {Video} from "../../interfaces/Video/Video";
 
 type Props = {
-    videoList: Video[]
+    videoList: Video[];
+    removeVideo: (videoToRemove: Video) => void;
 };
 
-const VideosBar: React.FC<Props> = ({videoList}) => {
+const VideosBar: React.FC<Props> = ({videoList, removeVideo}) => {
     if (videoList.length === 0) {
         return (
             <AlertBox/>
@@ -30,6 +31,7 @@ const VideosBar: React.FC<Props> = ({videoList}) => {
                             key={"videoTile_" + index}
                             video={video}
                             videoIndex={index}
+                            removeVideo={removeVideo}
                         />
                     );
                 })}

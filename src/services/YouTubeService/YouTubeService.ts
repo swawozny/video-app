@@ -3,6 +3,7 @@ import axios from 'axios';
 import {PlatformService} from "../../interfaces/PlatformService/PlatformService";
 import {ParamsService} from "../ParamsService/ParamsService";
 import {Video} from "../../interfaces/Video/Video";
+import {PlatformType} from "../../interfaces/Platform/PlatformType";
 
 export class YouTubeService implements PlatformService {
     getVideoDetails(videoId: string) {
@@ -25,10 +26,16 @@ export class YouTubeService implements PlatformService {
         return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
     }
 
+    getVideoLink(videoId: string) {
+        return `https://www.youtube.com/watch?v=${videoId}`;
+    }
+
     mapItemToVideo(item: any) {
         return {
             id: item.id,
+            platformId: PlatformType.YOUTUBE,
             title: item.snippet.title,
+            link: this.getVideoLink(item.id),
             views: Number(item.statistics.viewCount),
             likes: Number(item.statistics.likeCount),
             thumbnail: item.snippet.thumbnails.default.url,
