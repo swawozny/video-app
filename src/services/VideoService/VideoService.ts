@@ -47,6 +47,20 @@ export class VideoService {
         localStorage.setItem("videoList", JSON.stringify(list));
     }
 
+    static checkIfVideoExist = (video: Video, videoLink: VideoLink) => {
+        return video.id === videoLink.id && video.platformId === videoLink.platformId;
+    }
+
+    static removeVideo(video: Video) {
+        let list: VideoLink[] = this.getVideoListFromStorage();
+        const videoLinkToRemove = list.find(videoLink => this.checkIfVideoExist(video, videoLink));
+         if (videoLinkToRemove) {
+             list = list.filter(videoLink => videoLink !== videoLinkToRemove);
+         }
+         localStorage.setItem("videoList", JSON.stringify(list));
+        window.dispatchEvent(new Event("storage"));
+    }
+
     static getVideoPlatform(url: string) {
         for (const videoService of videoPlatforms) {
             if (RegExp(videoService.regex).test(url)) {

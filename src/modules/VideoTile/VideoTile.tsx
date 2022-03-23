@@ -1,19 +1,21 @@
 import React, {useState} from "react";
-import {Card, CardBody, CardDeck, CardFooter, Col} from "reactstrap";
+import {Card, CardBody, CardDeck, CardFooter, CardHeader, Col} from "reactstrap";
 import {Calendar2DateFill} from "react-bootstrap-icons";
 
 import VideoTitle from "../../components/VideoTile/VideoTitle";
 import VideoStatistic from "../../components/VideoTile/VideoStatistic";
 import VideoModal from "../VideoModal/VideoModal";
 import VideoImage from "../../components/VideoTile/VideoImage";
+import RemoveButton from "../../components/VideoTile/RemoveButton";
 import {Video} from "../../interfaces/Video/Video";
 
 type Props = {
     video: Video;
     videoIndex: number;
+    removeVideo: (videoToRemove: Video) => void;
 };
 
-const VideoTile: React.FC<Props> = ({video, videoIndex}) => {
+const VideoTile: React.FC<Props> = ({video, videoIndex, removeVideo}) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [mouseEnter, setMouseEnter] = useState(false);
     const getDate = () => {
@@ -36,9 +38,15 @@ const VideoTile: React.FC<Props> = ({video, videoIndex}) => {
                 playerEmbedUrl={video.playerEmbedUrl}
             />
             <Col className="my-3">
-                <CardDeck>
+                <CardDeck className={"rounded " + getShadowSize()}>
+                    <CardHeader className="d-flex justify-content-end bg-primary bg-gradient">
+                        <RemoveButton
+                            video={video}
+                            removeVideo={removeVideo}
+                        />
+                    </CardHeader>
                     <Card
-                        className={"rounded text-center " + getShadowSize()}
+                        className="text-center"
                         style={{height: "400px"}}
                         onClick={() => setModalOpen(true)}
                         onMouseEnter={() => setMouseEnter(true)}

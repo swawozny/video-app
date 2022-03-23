@@ -37,6 +37,10 @@ const PaginationBar: React.FC<Props> = ({listLength, currentPageNumber, setCurre
         }
     };
 
+    if (listLength === 0) {
+        return null;
+    }
+
     return (
         <Container>
             <Row className="bg-light rounded-3 shadow-sm">
