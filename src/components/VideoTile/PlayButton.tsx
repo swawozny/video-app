@@ -1,34 +1,37 @@
 import React from "react";
 import {Button, UncontrolledTooltip} from "reactstrap";
-import {TrashFill} from "react-bootstrap-icons";
+import {PlayCircleFill} from "react-bootstrap-icons";
 
 import {Video} from "../../interfaces/Video/Video";
 
 type Props = {
     video: Video;
     index: number;
-    removeVideo: (videoToRemove: Video) => void;
 };
 
-const RemoveButton: React.FC<Props> = ({video, index, removeVideo}) => {
+const PlayButton: React.FC<Props> = ({video, index}) => {
+    const playVideo = () => {
+        window.open(video.link, "_blank");
+    };
+
     return (
         <>
             <Button
                 color="light"
-                id={"removeButton_" + index}
+                id={"playButton_" + index}
                 className="rounded shadow-sm btn border"
-                onClick={() => removeVideo(video)}
+                onClick={() => playVideo()}
             >
-                <TrashFill className="text-danger"/>
+                <PlayCircleFill/>
             </Button>
             <UncontrolledTooltip
                 placement="bottom"
-                target={"removeButton_" + index}
+                target={"playButton_" + index}
             >
-                Remove from list
+                Open video in new tab
             </UncontrolledTooltip>
         </>
     );
 };
 
-export default RemoveButton;
+export default PlayButton;

@@ -28,6 +28,7 @@ export class VimeoService implements PlatformService {
             id: this.getVideoId(item.uri),
             platformId: PlatformType.VIMEO,
             title: item.name,
+            link: item.link,
             views: null,
             likes: item.metadata.connections.likes.total,
             thumbnail: item.pictures.base_link,

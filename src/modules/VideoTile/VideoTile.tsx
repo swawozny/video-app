@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Card, CardBody, CardDeck, CardFooter, CardHeader, Col} from "reactstrap";
+import {Card, CardBody, CardDeck, CardFooter, Col} from "reactstrap";
 import {Calendar2DateFill} from "react-bootstrap-icons";
 
 import VideoTitle from "../../components/VideoTile/VideoTitle";
@@ -8,6 +8,7 @@ import VideoModal from "../VideoModal/VideoModal";
 import VideoImage from "../../components/VideoTile/VideoImage";
 import RemoveButton from "../../components/VideoTile/RemoveButton";
 import LikeButton from "../../components/VideoTile/LikeButton";
+import PlayButton from "../../components/VideoTile/PlayButton";
 import {Video} from "../../interfaces/Video/Video";
 
 type Props = {
@@ -41,36 +42,38 @@ const VideoTile: React.FC<Props> = ({video, videoIndex, removeVideo}) => {
             />
             <Col className="my-3">
                 <CardDeck className={"rounded " + getShadowSize()}>
-                    <CardHeader className="d-flex justify-content-end bg-primary bg-gradient">
-                        <LikeButton
-                            video={video}
-                            index={videoIndex}
-                        />
-                        <RemoveButton
-                            video={video}
-                            removeVideo={removeVideo}
-                            index={videoIndex}
-                        />
-                    </CardHeader>
                     <Card
                         className="text-center"
-                        style={{height: "400px"}}
-                        onClick={() => setModalOpen(true)}
-                        onMouseEnter={() => setMouseEnter(true)}
-                        onMouseLeave={() => setMouseEnter(false)}
+                        style={{height: "450px"}}
                         inverse
                     >
                         <VideoImage
                             video={video}
                             mouseEnter={mouseEnter}
+                            setMouseEnter={setMouseEnter}
                             setModalOpen={setModalOpen}
                         />
-                        <CardBody style={{minHeight: "30%"}}>
+                        <CardBody style={{minHeight: "20%"}}>
                             <VideoTitle
                                 title={video.title}
                                 videoIndex={videoIndex}
                             />
                         </CardBody>
+                        <CardFooter style={{minHeight: "10%", minWidth: "auto"}} className="bg-gradient">
+                            <PlayButton
+                                video={video}
+                                index={videoIndex}
+                            />
+                            <LikeButton
+                                video={video}
+                                index={videoIndex}
+                            />
+                            <RemoveButton
+                                video={video}
+                                removeVideo={removeVideo}
+                                index={videoIndex}
+                            />
+                        </CardFooter>
                         <CardFooter
                             className="bg-primary"
                             style={{minHeight: "10%", minWidth: "auto"}}

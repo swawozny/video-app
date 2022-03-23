@@ -37,7 +37,7 @@ const LikeButton: React.FC<Props> = ({video, index}) => {
             <Button
                 id={"likeButton_" + index}
                 color="light"
-                className="rounded shadow-sm btn mx-1"
+                className="rounded shadow-sm btn mx-1 text-secondary border"
                 onMouseEnter={() => setMouseEnter(true)}
                 onMouseLeave={() => setMouseEnter(false)}
                 onClick={() => handleChangeFavorite()}
