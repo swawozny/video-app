@@ -7,6 +7,7 @@ import VideoStatistic from "../../components/VideoTile/VideoStatistic";
 import VideoModal from "../VideoModal/VideoModal";
 import VideoImage from "../../components/VideoTile/VideoImage";
 import RemoveButton from "../../components/VideoTile/RemoveButton";
+import LikeButton from "../../components/VideoTile/LikeButton";
 import {Video} from "../../interfaces/Video/Video";
 
 type Props = {
@@ -18,6 +19,7 @@ type Props = {
 const VideoTile: React.FC<Props> = ({video, videoIndex, removeVideo}) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [mouseEnter, setMouseEnter] = useState(false);
+
     const getDate = () => {
         return new Date(video.publishedAt).toLocaleDateString();
     };
@@ -40,9 +42,14 @@ const VideoTile: React.FC<Props> = ({video, videoIndex, removeVideo}) => {
             <Col className="my-3">
                 <CardDeck className={"rounded " + getShadowSize()}>
                     <CardHeader className="d-flex justify-content-end bg-primary bg-gradient">
+                        <LikeButton
+                            video={video}
+                            index={videoIndex}
+                        />
                         <RemoveButton
                             video={video}
                             removeVideo={removeVideo}
+                            index={videoIndex}
                         />
                     </CardHeader>
                     <Card

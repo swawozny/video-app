@@ -33,6 +33,7 @@ export class VideoService {
         return {
             id: videoId,
             platformId: platform ? platform.id : -1,
+            favorite: false
         };
     }
 
@@ -54,11 +55,30 @@ export class VideoService {
     static removeVideo(video: Video) {
         let list: VideoLink[] = this.getVideoListFromStorage();
         const videoLinkToRemove = list.find(videoLink => this.checkIfVideoExist(video, videoLink));
-         if (videoLinkToRemove) {
-             list = list.filter(videoLink => videoLink !== videoLinkToRemove);
-         }
-         localStorage.setItem("videoList", JSON.stringify(list));
-        window.dispatchEvent(new Event("storage"));
+        if (videoLinkToRemove) {
+            list = list.filter(videoLink => videoLink !== videoLinkToRemove);
+        }
+        localStorage.setItem("videoList", JSON.stringify(list));
+    }
+
+    static changeFavorite(video: Video) {
+        let list: VideoLink[] = this.getVideoListFromStorage();
+        const videoLinkToLike = list.find(videoLink => this.checkIfVideoExist(video, videoLink));
+        if (videoLinkToLike) {
+            list = list.map(videoLink =>
+                videoLink === videoLinkToLike ? {...videoLink, favorite: !videoLinkToLike.favorite} : videoLink
+            );
+        }
+        localStorage.setItem("videoList", JSON.stringify(list));
+    }
+
+    static isFavorite(video: Video) {
+        let list: VideoLink[] = this.getVideoListFromStorage();
+        const videoLinkToCheck = list.find(videoLink => this.checkIfVideoExist(video, videoLink));
+        if (videoLinkToCheck) {
+            return videoLinkToCheck.favorite;
+        }
+        return false;
     }
 
     static getVideoPlatform(url: string) {
