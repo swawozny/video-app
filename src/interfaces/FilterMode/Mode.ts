@@ -1,6 +1,6 @@
 import {Video} from "../Video/Video";
 
-export interface FilterMode {
+export interface Mode {
     title: string;
     filterList: (list: Video[]) => Video[];
 }
