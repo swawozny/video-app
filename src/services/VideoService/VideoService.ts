@@ -46,7 +46,7 @@ export class VideoService {
     static addVideo(videoUrl: string) {
         const list: VideoLink[] = this.getVideoListFromStorage();
         const newVideo: VideoLink = this.getVideoObject(videoUrl);
-        let videoCanBeAdded: boolean = this.checkVideo(list, newVideo);
+        const videoCanBeAdded: boolean = this.checkVideo(list, newVideo);
 
         if (videoCanBeAdded) {
             list.push(newVideo);
@@ -65,15 +65,6 @@ export class VideoService {
             list = list.filter(videoLink => videoLink !== videoLinkToRemove);
         }
         localStorage.setItem("videoList", JSON.stringify(list));
-    }
-
-    static isVideoFavorite(video: Video) {
-        const list: VideoLink[] = this.getVideoListFromStorage();
-        const videoLinkToCheck = list.find(videoLink => this.checkIfVideoExist(video, videoLink));
-        if (videoLinkToCheck) {
-            return videoLinkToCheck.favorite;
-        }
-        return false;
     }
 
     static getFilteredVideoList(videoList: Video[], filterType: FilterType) {
@@ -103,8 +94,8 @@ export class VideoService {
         localStorage.setItem("videoList", JSON.stringify(list));
     }
 
-    static isFavorite(video: Video) {
-        let list: VideoLink[] = this.getVideoListFromStorage();
+    static isVideoFavorite(video: Video) {
+        const list: VideoLink[] = this.getVideoListFromStorage();
         const videoLinkToCheck = list.find(videoLink => this.checkIfVideoExist(video, videoLink));
         if (videoLinkToCheck) {
             return videoLinkToCheck.favorite;
@@ -113,7 +104,7 @@ export class VideoService {
     }
 
     static getVideoAddedDate(video: Video) {
-        let list: VideoLink[] = this.getVideoListFromStorage();
+        const list: VideoLink[] = this.getVideoListFromStorage();
         const videoLinkToCheck = list.find(videoLink => this.checkIfVideoExist(video, videoLink));
         if (videoLinkToCheck) {
             return new Date(videoLinkToCheck.addedDate);
@@ -160,7 +151,7 @@ export class VideoService {
     }
 
     static getGroupedVideoLinks(list: VideoLink[]) {
-        let groupedVideoLinkList: string[][] = [];
+        const groupedVideoLinkList: string[][] = [];
 
         this.initGroupedList(groupedVideoLinkList);
         this.groupListByPlatformId(list, groupedVideoLinkList);

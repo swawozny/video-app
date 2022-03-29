@@ -46,7 +46,7 @@ const FilterBarInput = <T extends unknown>({
                         {Array.from(modes.keys()).map((type, index) => {
                             return (
                                 <option
-                                    key={title + "Type_" + index}
+                                    key={`${title}Type_${index}`}
                                     value={String(type)}
                                 >
                                     {modes.get(type)?.title}
