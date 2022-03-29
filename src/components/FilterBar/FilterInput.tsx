@@ -5,15 +5,15 @@ import filterModes from "../../modules/FilterBar/filterModes";
 import {FilterType} from "../../interfaces/FilterMode/FilterType";
 
 type Props = {
-    filterType: FilterType;
-    setFilterType: (type: FilterType) => void;
+    currentFilterType: FilterType;
+    setCurrentFilterType: (type: FilterType) => void;
 };
 
-const FilterInput: React.FC<Props> = ({filterType, setFilterType}) => {
+const FilterInput: React.FC<Props> = ({currentFilterType, setCurrentFilterType}) => {
     const handleChangeFilterType = (event: any) => {
         const newFilterType = event.target.value || "";
         if (newFilterType) {
-            setFilterType(newFilterType);
+            setCurrentFilterType(newFilterType);
         }
     };
 
@@ -31,7 +31,7 @@ const FilterInput: React.FC<Props> = ({filterType, setFilterType}) => {
                         id="filterSelect"
                         name="select"
                         type="select"
-                        value={filterType}
+                        value={currentFilterType}
                         onChange={event => handleChangeFilterType(event)}
                     >
                         {Array.from(filterModes.keys()).map((filterType, index) => {

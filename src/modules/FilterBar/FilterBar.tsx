@@ -18,8 +18,8 @@ const FilterBar: React.FC<Props> = ({filterType, setFilterType}) => {
                  xl={4}
             >
                 <FilterInput
-                    filterType={filterType}
-                    setFilterType={setFilterType}
+                    currentFilterType={filterType}
+                    setCurrentFilterType={setFilterType}
                 />
             </Row>
         </Container>
