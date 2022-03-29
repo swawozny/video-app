@@ -7,10 +7,11 @@ import {Video} from "../../interfaces/Video/Video";
 
 type Props = {
     videoList: Video[];
-    removeVideo: (videoToRemove: Video) => void;
+    videoChanged: boolean;
+    setVideoChanged: (isChanged: boolean) => void;
 };
 
-const VideosBar: React.FC<Props> = ({videoList, removeVideo}) => {
+const VideosBar: React.FC<Props> = ({videoList, videoChanged, setVideoChanged}) => {
     if (videoList.length === 0) {
         return (
             <AlertBox/>
@@ -31,7 +32,8 @@ const VideosBar: React.FC<Props> = ({videoList, removeVideo}) => {
                             key={"videoTile_" + index}
                             video={video}
                             videoIndex={index}
-                            removeVideo={removeVideo}
+                            videoChanged={videoChanged}
+                            setVideoChanged={setVideoChanged}
                         />
                     );
                 })}

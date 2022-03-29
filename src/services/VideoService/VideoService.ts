@@ -1,8 +1,11 @@
+import videoPlatformTypes from "../../modules/SearchBar/videoPlatformTypes";
+import videoPlatforms from "../../modules/SearchBar/videoPlatforms";
+import filterModes from "../../modules/FilterBar/filterModes";
 import {Platform} from "../../interfaces/Platform/Platform";
 import {VideoLink} from "../../interfaces/VideoLink/VideoLink";
 import {Video} from "../../interfaces/Video/Video";
-import videoPlatformTypes from "../../modules/SearchBar/videoPlatformTypes";
-import videoPlatforms from "../../modules/SearchBar/videoPlatforms";
+import {FilterType} from "../../interfaces/FilterMode/FilterType";
+import {FilterMode} from "../../interfaces/FilterMode/FilterMode";
 
 export class VideoService {
     static getVideoId(url: string) {
@@ -59,6 +62,23 @@ export class VideoService {
             list = list.filter(videoLink => videoLink !== videoLinkToRemove);
         }
         localStorage.setItem("videoList", JSON.stringify(list));
+    }
+
+    static isVideoFavorite(video: Video) {
+        const list: VideoLink[] = this.getVideoListFromStorage();
+        const videoLinkToCheck = list.find(videoLink => this.checkIfVideoExist(video, videoLink));
+        if (videoLinkToCheck) {
+            return videoLinkToCheck.favorite;
+        }
+        return false;
+    }
+
+    static getFilteredVideoList(videoList: Video[], filterType: FilterType) {
+        const currentFilterMode: FilterMode | undefined = filterModes.get(filterType);
+        if (currentFilterMode) {
+            return currentFilterMode.filterList(videoList);
+        }
+        return [];
     }
 
     static changeFavorite(video: Video) {

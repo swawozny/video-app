@@ -8,12 +8,15 @@ import {Video} from "../../interfaces/Video/Video";
 type Props = {
     video: Video;
     index: number;
+    videoChanged: boolean;
+    setVideoChanged: (isChanged: boolean) => void;
 };
 
-const LikeButton: React.FC<Props> = ({video, index}) => {
+const LikeButton: React.FC<Props> = ({video, index, videoChanged, setVideoChanged}) => {
     const [mouseEnter, setMouseEnter] = useState(false);
 
     const handleChangeFavorite = () => {
+        setVideoChanged(!videoChanged);
         VideoService.changeFavorite(video);
     };
 

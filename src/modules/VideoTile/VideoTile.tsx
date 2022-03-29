@@ -14,10 +14,11 @@ import {Video} from "../../interfaces/Video/Video";
 type Props = {
     video: Video;
     videoIndex: number;
-    removeVideo: (videoToRemove: Video) => void;
+    videoChanged: boolean;
+    setVideoChanged: (isChanged: boolean) => void;
 };
 
-const VideoTile: React.FC<Props> = ({video, videoIndex, removeVideo}) => {
+const VideoTile: React.FC<Props> = ({video, videoIndex, videoChanged, setVideoChanged}) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [mouseEnter, setMouseEnter] = useState(false);
 
@@ -67,11 +68,14 @@ const VideoTile: React.FC<Props> = ({video, videoIndex, removeVideo}) => {
                             <LikeButton
                                 video={video}
                                 index={videoIndex}
+                                videoChanged={videoChanged}
+                                setVideoChanged={setVideoChanged}
                             />
                             <RemoveButton
                                 video={video}
-                                removeVideo={removeVideo}
                                 index={videoIndex}
+                                videoChanged={videoChanged}
+                                setVideoChanged={setVideoChanged}
                             />
                         </CardFooter>
                         <CardFooter
