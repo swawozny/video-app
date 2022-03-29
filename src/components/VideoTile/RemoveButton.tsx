@@ -3,21 +3,28 @@ import {Button, UncontrolledTooltip} from "reactstrap";
 import {TrashFill} from "react-bootstrap-icons";
 
 import {Video} from "../../interfaces/Video/Video";
+import {VideoService} from "../../services/VideoService/VideoService";
 
 type Props = {
     video: Video;
     index: number;
-    removeVideo: (videoToRemove: Video) => void;
+    videoChanged: boolean;
+    setVideoChanged: (isChanged: boolean) => void;
 };
 
-const RemoveButton: React.FC<Props> = ({video, index, removeVideo}) => {
+const RemoveButton: React.FC<Props> = ({video, index, videoChanged, setVideoChanged}) => {
+    const handleRemoveVideo = () => {
+        setVideoChanged(!videoChanged);
+        VideoService.removeVideo(video);
+    };
+
     return (
         <>
             <Button
                 color="light"
                 id={"removeButton_" + index}
                 className="rounded shadow-sm btn border"
-                onClick={() => removeVideo(video)}
+                onClick={() => handleRemoveVideo()}
             >
                 <TrashFill className="text-danger"/>
             </Button>

@@ -3,6 +3,9 @@ import {VideoLink} from "../../interfaces/VideoLink/VideoLink";
 import {Video} from "../../interfaces/Video/Video";
 import videoPlatformTypes from "../../modules/SearchBar/videoPlatformTypes";
 import videoPlatforms from "../../modules/SearchBar/videoPlatforms";
+import {FilterMode} from "../../interfaces/FilterMode/FilterMode";
+import filterModes from "../../modules/FilterBar/filterModes";
+import {FilterType} from "../../interfaces/FilterMode/FilterType";
 
 export class VideoService {
     static getVideoId(url: string) {
@@ -59,6 +62,23 @@ export class VideoService {
             list = list.filter(videoLink => videoLink !== videoLinkToRemove);
         }
         localStorage.setItem("videoList", JSON.stringify(list));
+    }
+
+    static isVideoFavorite(video: Video) {
+        let list: VideoLink[] = this.getVideoListFromStorage();
+        const videoLinkToCheck = list.find(videoLink => this.checkIfVideoExist(video, videoLink));
+        if (videoLinkToCheck) {
+            return videoLinkToCheck.favorite;
+        }
+        return false;
+    }
+
+    static getFilteredVideoList(list: Video[], filterType: FilterType) {
+        const currentFilterMode: FilterMode | undefined = filterModes.get(filterType);
+        if (currentFilterMode) {
+            return currentFilterMode.filterList(list);
+        }
+        return [];
     }
 
     static changeFavorite(video: Video) {
