@@ -21,7 +21,7 @@ const LikeButton: React.FC<Props> = ({video, index, videoChanged, setVideoChange
     };
 
     const isVideoFavorite = () => {
-        return VideoService.isFavorite(video);
+        return VideoService.isVideoFavorite(video);
     };
 
     const getToolTipText = () => {

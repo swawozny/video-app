@@ -1,11 +1,13 @@
 import videoPlatformTypes from "../../modules/SearchBar/videoPlatformTypes";
 import videoPlatforms from "../../modules/SearchBar/videoPlatforms";
 import filterModes from "../../modules/FilterBar/filterModes";
+import sortingModes from "../../modules/FilterBar/sortingModes";
 import {Platform} from "../../interfaces/Platform/Platform";
 import {VideoLink} from "../../interfaces/VideoLink/VideoLink";
 import {Video} from "../../interfaces/Video/Video";
 import {FilterType} from "../../interfaces/FilterMode/FilterType";
-import {FilterMode} from "../../interfaces/FilterMode/FilterMode";
+import {Mode} from "../../interfaces/FilterMode/Mode";
+import {SortingType} from "../../interfaces/FilterMode/SortingType";
 
 export class VideoService {
     static getVideoId(url: string) {
@@ -36,6 +38,7 @@ export class VideoService {
         return {
             id: videoId,
             platformId: platform ? platform.id : -1,
+            addedDate: new Date().toString(),
             favorite: false
         };
     }
@@ -43,7 +46,7 @@ export class VideoService {
     static addVideo(videoUrl: string) {
         const list: VideoLink[] = this.getVideoListFromStorage();
         const newVideo: VideoLink = this.getVideoObject(videoUrl);
-        let videoCanBeAdded: boolean = this.checkVideo(list, newVideo);
+        const videoCanBeAdded: boolean = this.checkVideo(list, newVideo);
 
         if (videoCanBeAdded) {
             list.push(newVideo);
@@ -64,19 +67,18 @@ export class VideoService {
         localStorage.setItem("videoList", JSON.stringify(list));
     }
 
-    static isVideoFavorite(video: Video) {
-        const list: VideoLink[] = this.getVideoListFromStorage();
-        const videoLinkToCheck = list.find(videoLink => this.checkIfVideoExist(video, videoLink));
-        if (videoLinkToCheck) {
-            return videoLinkToCheck.favorite;
-        }
-        return false;
-    }
-
     static getFilteredVideoList(videoList: Video[], filterType: FilterType) {
-        const currentFilterMode: FilterMode | undefined = filterModes.get(filterType);
+        const currentFilterMode: Mode | undefined = filterModes.get(filterType);
         if (currentFilterMode) {
             return currentFilterMode.filterList(videoList);
+        }
+        return [];
+    }
+
+    static getSortedVideoList(videoList: Video[], sortingType: SortingType) {
+        const currentSortingMode: Mode | undefined = sortingModes.get(sortingType);
+        if (currentSortingMode) {
+            return currentSortingMode.filterList(videoList);
         }
         return [];
     }
@@ -92,13 +94,26 @@ export class VideoService {
         localStorage.setItem("videoList", JSON.stringify(list));
     }
 
-    static isFavorite(video: Video) {
-        let list: VideoLink[] = this.getVideoListFromStorage();
+    static isVideoFavorite(video: Video) {
+        const list: VideoLink[] = this.getVideoListFromStorage();
         const videoLinkToCheck = list.find(videoLink => this.checkIfVideoExist(video, videoLink));
         if (videoLinkToCheck) {
             return videoLinkToCheck.favorite;
         }
         return false;
+    }
+
+    static getVideoAddedDate(video: Video) {
+        const list: VideoLink[] = this.getVideoListFromStorage();
+        const videoLinkToCheck = list.find(videoLink => this.checkIfVideoExist(video, videoLink));
+        if (videoLinkToCheck) {
+            return new Date(videoLinkToCheck.addedDate);
+        }
+        return new Date();
+    }
+
+    static compareAddedDates(firstVideo: Video, secondVideo: Video) {
+        return this.getVideoAddedDate(secondVideo).getTime() - this.getVideoAddedDate(firstVideo).getTime();
     }
 
     static getVideoPlatform(url: string) {
@@ -136,7 +151,7 @@ export class VideoService {
     }
 
     static getGroupedVideoLinks(list: VideoLink[]) {
-        let groupedVideoLinkList: string[][] = [];
+        const groupedVideoLinkList: string[][] = [];
 
         this.initGroupedList(groupedVideoLinkList);
         this.groupListByPlatformId(list, groupedVideoLinkList);

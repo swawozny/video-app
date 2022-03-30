@@ -1,8 +1,8 @@
-import {FilterMode} from "../../interfaces/FilterMode/FilterMode";
+import {Mode} from "../../interfaces/FilterMode/Mode";
 import {FilterType} from "../../interfaces/FilterMode/FilterType";
 import {VideoService} from "../../services/VideoService/VideoService";
 
-const filterModes: Map<FilterType, FilterMode> = new Map<FilterType, FilterMode>([
+const filterModes: Map<FilterType, Mode> = new Map<FilterType, Mode>([
     [
         FilterType.ALL,
         {
