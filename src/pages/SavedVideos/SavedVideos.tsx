@@ -8,14 +8,18 @@ import {VideoService} from "../../services/VideoService/VideoService";
 import {Video} from "../../interfaces/Video/Video";
 import {FilterType} from "../../interfaces/FilterMode/FilterType";
 import {SortingType} from "../../interfaces/FilterMode/SortingType";
+import {DisplayType} from "../../interfaces/DisplayForm/DisplayType";
 
 const SavedVideos = () => {
     const [videoList, setVideoList] = useState(null as Video[] | null);
+    const [videoChanged, setVideoChanged] = useState(false);
+
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
     const [pageItemsNumber] = useState(3);
-    const [videoChanged, setVideoChanged] = useState(false);
+
     const [filterType, setFilterType] = useState(FilterType.ALL as FilterType);
     const [sortingType, setSortingType] = useState(SortingType.NEWEST as SortingType);
+    const [displayType, setDisplayType] = useState(DisplayType.TILE as DisplayType);
 
     useEffect(() => {
         VideoService.fetchAllVideos()
@@ -46,11 +50,14 @@ const SavedVideos = () => {
                 sortingType={sortingType}
                 setSortingType={setSortingType}
                 setCurrentPageNumber={setCurrentPageNumber}
+                displayType={displayType}
+                setDisplayType={setDisplayType}
             />
             <VideosBar
                 videoList={getSlicedVideoList()}
                 videoChanged={videoChanged}
                 setVideoChanged={setVideoChanged}
+                displayType={displayType}
             />
             <PaginationBar
                 listLength={getVideoList().length}
