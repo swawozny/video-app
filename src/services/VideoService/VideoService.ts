@@ -112,6 +112,11 @@ export class VideoService {
         return new Date();
     }
 
+    static removeAllVideos() {
+        localStorage.removeItem("videoList");
+    }
+
+
     static compareAddedDates(firstVideo: Video, secondVideo: Video) {
         return this.getVideoAddedDate(secondVideo).getTime() - this.getVideoAddedDate(firstVideo).getTime();
     }
