@@ -1,39 +1,45 @@
 import React from "react";
 import {Container, Row} from "reactstrap";
 
-import VideoTile from "../VideoTile/VideoTile";
 import AlertBox from "../../components/VideosBar/AlertBox";
+import VideoItem from "../VideoItem/VideoItem";
+import displayForms from "../FilterBar/displayForms";
 import {Video} from "../../interfaces/Video/Video";
+import {DisplayType} from "../../interfaces/DisplayForm/DisplayType";
 
 type Props = {
     videoList: Video[];
     videoChanged: boolean;
     setVideoChanged: (isChanged: boolean) => void;
+    displayType: DisplayType;
 };
 
-const VideosBar: React.FC<Props> = ({videoList, videoChanged, setVideoChanged}) => {
+const VideosBar: React.FC<Props> = ({videoList, videoChanged, setVideoChanged, displayType}) => {
     if (videoList.length === 0) {
         return (
             <AlertBox/>
         );
     }
 
+    const {xs, md, xl} = {...displayForms?.get(displayType)?.rowCols};
+
     return (
         <Container>
             <Row
-                xs="1"
-                md="2"
-                xl="4"
+                xs={xs}
+                md={md}
+                xl={xl}
                 className="m-2 p-2"
             >
                 {videoList.map((video, index) => {
                     return (
-                        <VideoTile
-                            key={"videoTile_" + index}
+                        <VideoItem
+                            key={"videoItem_" + index}
                             video={video}
                             videoIndex={index}
                             videoChanged={videoChanged}
                             setVideoChanged={setVideoChanged}
+                            currentDisplayType={displayType}
                         />
                     );
                 })}
