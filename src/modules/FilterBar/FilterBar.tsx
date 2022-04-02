@@ -3,6 +3,7 @@ import {Container, Row} from "reactstrap";
 
 import FilterBarInput from "../../components/FilterBar/FilterBarInput";
 import DisplayFormSection from "../../components/FilterBar/DisplayFormSection";
+import OptionsButton from "../../components/FilterBar/OptionsButton";
 import sortingModes from "./sortingModes";
 import filterModes from "./filterModes";
 import {FilterType} from "../../interfaces/FilterMode/FilterType";
@@ -17,6 +18,8 @@ type Props = {
     setCurrentPageNumber: (pageNumber: number) => void;
     displayType: DisplayType;
     setDisplayType: (type: DisplayType) => void;
+    videoChanged: boolean;
+    setVideoChanged: (isChanged: boolean) => void;
 };
 
 const FilterBar: React.FC<Props> = ({
@@ -26,7 +29,9 @@ const FilterBar: React.FC<Props> = ({
                                         setSortingType,
                                         setCurrentPageNumber,
                                         displayType,
-                                        setDisplayType
+                                        setDisplayType,
+                                        videoChanged,
+                                        setVideoChanged
                                     }) => {
     return (
         <Container>
@@ -52,6 +57,10 @@ const FilterBar: React.FC<Props> = ({
                 <DisplayFormSection
                     currentDisplayType={displayType}
                     setCurrentDisplayType={setDisplayType}
+                />
+                <OptionsButton
+                    videoChanged={videoChanged}
+                    setVideoChanged={setVideoChanged}
                 />
             </Row>
         </Container>

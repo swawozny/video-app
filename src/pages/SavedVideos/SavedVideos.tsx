@@ -52,6 +52,8 @@ const SavedVideos = () => {
                 setCurrentPageNumber={setCurrentPageNumber}
                 displayType={displayType}
                 setDisplayType={setDisplayType}
+                videoChanged={videoChanged}
+                setVideoChanged={setVideoChanged}
             />
             <VideosBar
                 videoList={getSlicedVideoList()}
