@@ -8,6 +8,7 @@ import {Video} from "../../interfaces/Video/Video";
 import {FilterType} from "../../interfaces/FilterMode/FilterType";
 import {Mode} from "../../interfaces/FilterMode/Mode";
 import {SortingType} from "../../interfaces/FilterMode/SortingType";
+import exampleVideoLinks from "../../pages/SavedVideos/exampleVideoLinks";
 
 export class VideoService {
     static getVideoId(url: string) {
@@ -141,6 +142,13 @@ export class VideoService {
     static initGroupedList(list: string[][]) {
         videoPlatformTypes.forEach((_, platformType) => {
             list[platformType] = [];
+        });
+    }
+
+    static loadExampleVideos() {
+        this.removeAllVideos();
+        exampleVideoLinks.forEach(videoLink => {
+            this.addVideo(videoLink);
         });
     }
 

@@ -61,6 +61,7 @@ const FilterBar: React.FC<Props> = ({
                 <OptionsButton
                     videoChanged={videoChanged}
                     setVideoChanged={setVideoChanged}
+                    setCurrentPageNumber={setCurrentPageNumber}
                 />
             </Row>
         </Container>

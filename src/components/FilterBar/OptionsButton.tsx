@@ -8,9 +8,10 @@ import {VideoOption} from "../../interfaces/VideoOption/VideoOption";
 type Props = {
     videoChanged: boolean;
     setVideoChanged: (isChanged: boolean) => void;
+    setCurrentPageNumber: (pageNumber: number) => void;
 };
 
-const OptionsButton: React.FC<Props> = ({videoChanged, setVideoChanged}) => {
+const OptionsButton: React.FC<Props> = ({videoChanged, setVideoChanged, setCurrentPageNumber}) => {
     const [toggle, setToggle] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [currentVideoOption, setCurrentVideoOption] = useState(null as VideoOption | null);
@@ -26,9 +27,11 @@ const OptionsButton: React.FC<Props> = ({videoChanged, setVideoChanged}) => {
                 <ConfirmationModal
                     actionTitle={currentVideoOption.title}
                     modalOpen={modalOpen}
-                    setModalOpen={setModalOpen} onConfirm={() => currentVideoOption.onSubmit()}
+                    setModalOpen={setModalOpen}
+                    onConfirm={() => currentVideoOption.onSubmit()}
                     videoChanged={videoChanged}
                     setVideoChanged={setVideoChanged}
+                    setCurrentPageNumber={setCurrentPageNumber}
                 /> : null}
             <Form>
                 <FormGroup row>
@@ -57,7 +60,7 @@ const OptionsButton: React.FC<Props> = ({videoChanged, setVideoChanged}) => {
                                             onClick={() => openModal(option)}
                                             className="justify-content-center align-items-center"
                                         >
-                                            <option.icon/>
+                                            <option.icon className="mx-1"/>
                                             {option.title}
                                         </DropdownItem>
                                     );
