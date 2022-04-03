@@ -8,6 +8,7 @@ type Props = {
     onConfirm: () => void;
     videoChanged: boolean;
     setVideoChanged: (isChanged: boolean) => void;
+    setCurrentPageNumber: (pageNumber: number) => void;
 };
 
 const ConfirmationModal: React.FC<Props> = ({
@@ -16,7 +17,8 @@ const ConfirmationModal: React.FC<Props> = ({
                                                 setModalOpen,
                                                 onConfirm,
                                                 videoChanged,
-                                                setVideoChanged
+                                                setVideoChanged,
+                                                setCurrentPageNumber
                                             }) => {
     const [input, setInput] = useState("");
 
@@ -39,6 +41,7 @@ const ConfirmationModal: React.FC<Props> = ({
     const onSubmitClick = () => {
         onConfirm();
         setVideoChanged(!videoChanged);
+        setCurrentPageNumber(1);
         hideModal();
     };
 
