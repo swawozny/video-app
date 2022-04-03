@@ -50,7 +50,7 @@ const OptionsButton: React.FC<Props> = ({videoChanged, setVideoChanged, setCurre
                                 color={"primary"}
                                 caret
                             >
-                                CHOOSE
+                                CHOOSE ONE
                             </DropdownToggle>
                             <DropdownMenu>
                                 {videoOptions.map((option, index) => {

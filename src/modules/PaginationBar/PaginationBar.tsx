@@ -43,7 +43,7 @@ const PaginationBar: React.FC<Props> = ({listLength, currentPageNumber, setCurre
 
     return (
         <Container>
-            <Row className="bg-light rounded-3 shadow-sm">
+            <Row className="bg-light rounded-3 shadow-sm m-2 p-2 border">
                 <Col className="d-flex justify-content-end align-items-center">
                     <Pagination
                         aria-label="Movie list pagination"

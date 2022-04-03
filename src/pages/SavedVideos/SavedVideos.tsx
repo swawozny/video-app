@@ -4,6 +4,7 @@ import VideosBar from "../../modules/VideosBar/VideosBar";
 import LoadingAlert from "../../components/VideosBar/LoadingAlert";
 import PaginationBar from "../../modules/PaginationBar/PaginationBar";
 import FilterBar from "../../modules/FilterBar/FilterBar";
+import itemsNumberOptions from "../../modules/FilterBar/itemsNumberOptions";
 import {VideoService} from "../../services/VideoService/VideoService";
 import {Video} from "../../interfaces/Video/Video";
 import {FilterType} from "../../interfaces/FilterMode/FilterType";
@@ -15,7 +16,7 @@ const SavedVideos = () => {
     const [videoChanged, setVideoChanged] = useState(false);
 
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
-    const [pageItemsNumber] = useState(3);
+    const [pageItemsNumber, setPageItemsNumber] = useState(itemsNumberOptions[0].value);
 
     const [filterType, setFilterType] = useState(FilterType.ALL as FilterType);
     const [sortingType, setSortingType] = useState(SortingType.NEWEST as SortingType);
@@ -54,6 +55,8 @@ const SavedVideos = () => {
                 setDisplayType={setDisplayType}
                 videoChanged={videoChanged}
                 setVideoChanged={setVideoChanged}
+                currentPageItemsNumber={pageItemsNumber}
+                setCurrentPageItemsNumber={setPageItemsNumber}
             />
             <VideosBar
                 videoList={getSlicedVideoList()}
