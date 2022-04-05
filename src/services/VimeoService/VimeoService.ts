@@ -38,9 +38,9 @@ export class VimeoService implements PlatformService {
     }
 
     getListWithPrefixes(list: string[]) {
-        return list.map(id => {
-            return `/videos/${id}`;
-        });
+        return list
+            .map(id => `/videos/${id}`)
+            .join(',');
     }
 
     getVideoList(videoIdList: string[]) {
