@@ -38,7 +38,7 @@ export class YouTubeService implements PlatformService {
             link: this.getVideoLink(item.id),
             views: Number(item.statistics.viewCount),
             likes: Number(item.statistics.likeCount),
-            thumbnail: item.snippet.thumbnails.default.url,
+            thumbnail: item.snippet.thumbnails.standard.url,
             publishedAt: item.snippet.publishedAt,
             playerEmbedUrl: this.getEmbedUrl(item.id)
         } as Video
