@@ -1,46 +1,103 @@
-# Getting Started with Create React App
+# Video APP
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Demo link:
+Access my site at [https://swawozny.github.io/video-app/](https://swawozny.github.io/video-app/)
 
-## Available Scripts
+## Table of Content:
 
-In the project directory, you can run:
+- [About The App](#about-the-app)
+- [Features](#features)
+- [Technologies](#technologies)
+- [Setup](#setup)
+- [Status](#status)
+- [License](#license)
 
-### `npm start`
+## About The App
+VideoAPP allows users to save videos from various websites such as YouTube or Vimeo. The user can mark movies as favorites, filter them by the date they were added, and watch them without going to the website where the video comes from.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Adding a movie 
+On the home page, there is an input that allows you to paste a link to the video.
 
-### `npm test`
+![addingmovie](https://i.postimg.cc/HxqtwFyH/zdj1.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Currently, you can add a movie with:
+- full youtube or Vimeo link
+- Youtube shortcut link
+- youtube video ID
 
-### `npm run build`
+However, an interface has been prepared that allows you to add additional options for adding videos from other websites in the future.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Display a movie 
+The Saved Videos page shows all the videos you've saved so far.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![displaymovie](https://i.postimg.cc/CKtC09JD/zdj2.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+When you click on one of the movies, a modal opens which automatically turns on the movie.
 
-### `npm run eject`
+![displaymodal](https://i.postimg.cc/wvmXjFbr/zdj2-2.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Edit a movie
+Each video has three options:
+- opening it on its home site
+- delete from saved
+- adding to favorites
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![editmovie](https://i.postimg.cc/NGXDsG30/zdj3.png)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Filtering videos
+Above the list of movies there is a bar that allows you to filter by the date of adding or whether the movie has been marked as favorite.
 
-## Learn More
+![filtermovie](https://i.postimg.cc/m2NS9X2f/zdj4.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+It is also possible to change the form of displaying movies from tiles to a list.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![changedisplayform](https://i.postimg.cc/3wWjP3jY/zdj5.png)
+
+### Videos options
+The filter bar also has possibility to remove all movies or add examples.
+
+![videosoptions](https://i.postimg.cc/3JHBd5hF/zdj6.png)
+
+After selecting one of the options, it is necessary to confirm your decision by rewriting the underlined text.
+
+![confirmdecision](https://i.postimg.cc/t4qNN3Y1/zdj7.png)
+
+### Pagination bar
+
+The user can select the number of movies displayed on a single page in the filter bar, and at the bottom, there is a bar where he can choose the page that interests him.
+
+![paginationbar](https://i.postimg.cc/wjwcf1mw/zdj8.png)
+
+
+## Technologies
+![TypeScript](https://img.shields.io/badge/-TypeScript-000?&logo=TypeScript&logoColor=ddc508)
+![React](https://img.shields.io/badge/-React-000?&logo=React)
+![Reactstrap](https://img.shields.io/badge/-Reactstrap-000?&logo=Reactstrap)
+![Reactrouter](https://img.shields.io/badge/-Reactrouter-000?&logo=Reactrouter)
+
+## Setup
+
+Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
+
+Installation:
+
+`npm install`  
+
+To Start Server:
+
+`npm start`  
+
+To Visit App:
+
+`localhost:3000`  
+
+
+## Status
+[VideoAPP] is done. All tasks have been implemented.
+
+## License
+
+MIT license @ [Sebastian Wąwoźny](sebastianwawozny@wp.pl)
