@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {Link} from "react-router-dom";
 import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "reactstrap";
 import {PersonVideo2} from "react-bootstrap-icons";
 
@@ -13,13 +14,15 @@ const TopBar = () => {
                 dark
                 expand="md"
             >
-                <NavbarBrand
-                    className="me-auto"
-                    href="/"
+                <Link
+                    className="text-decoration-none"
+                    to="/"
                 >
-                    <PersonVideo2 className="m-1"/>
-                    VideoApp
-                </NavbarBrand>
+                    <NavbarBrand className="me-auto">
+                        <PersonVideo2 className="m-1"/>
+                        VideoApp
+                    </NavbarBrand>
+                </Link>
                 <NavbarToggler
                     className="me-2"
                     onClick={() => {
@@ -36,11 +39,16 @@ const TopBar = () => {
                     >
                         {pages.map((page, index) => {
                             return (
-                                <NavItem key={"navItem_" + index}>
-                                    <NavLink href={page.path}>
-                                        {page.title}
-                                    </NavLink>
-                                </NavItem>
+                                <Link
+                                    className="text-decoration-none"
+                                    to={page.path}
+                                >
+                                    <NavItem key={"navItem_" + index}>
+                                        <NavLink>
+                                            {page.title}
+                                        </NavLink>
+                                    </NavItem>
+                                </Link>
                             );
                         })}
                     </Nav>

@@ -13,7 +13,7 @@ const PageButton: React.FC<Props> = ({pageNumber, isActive, goToPage}) => {
             active={isActive}
             onClick={() => goToPage(pageNumber)}
         >
-            <PaginationLink href="#">
+            <PaginationLink>
                 {pageNumber}
             </PaginationLink>
         </PaginationItem>
