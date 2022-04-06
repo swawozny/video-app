@@ -1,6 +1,6 @@
 {
-  "homepage": "https://swawozny.github.io/video-app",
-  "name": "videoapp",
+  "homepage": "https://swawozny.github.io/video-app/",
+  "name": "video-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

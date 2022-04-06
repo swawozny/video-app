@@ -34,6 +34,7 @@ const PaginationBar: React.FC<Props> = ({listLength, currentPageNumber, setCurre
     const goToPage = (pageNumber: number) => {
         if (pageNumber > 0 && pageNumber < getNumberOfPages() + 1) {
             setCurrentPageNumber(pageNumber);
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
     };
 
