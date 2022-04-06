@@ -1,5 +1,5 @@
 import React from "react";
-import {Col} from "reactstrap";
+import {Card, CardText, CardTitle, Col} from "reactstrap";
 
 type Props = {
     title: string;
@@ -9,12 +9,17 @@ type Props = {
 
 const Section: React.FC<Props> = ({title, description, icon}) => {
     return (
-        <Col>
-            <h4>
-                {icon}
-                {title}
-            </h4>
-            <p>{description}</p>
+        <Col className="p-2">
+            <Card
+                className="p-2 rounded-3 shadow-sm"
+                style={{height: "150px"}}
+            >
+                <CardTitle tag="h3">
+                    {icon}
+                    {title}
+                </CardTitle>
+                <CardText>{description}</CardText>
+            </Card>
         </Col>
     );
 };
